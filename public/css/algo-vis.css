@@ -1,0 +1,55 @@
+#algo-vis {
+  padding: 0;
+}
+
+#algo-vis > table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#algo-vis td {
+  margin: 0;
+  border: 1px solid gray;
+  padding: 0;
+}
+
+.vis-cell {
+
+}
+
+#vis-container {
+  padding: 1em;
+  align-items: flex-start;
+}
+
+
+#passability-icon {
+  width: 2em;
+  height: 2em;
+  border: 1px solid gray;
+  background-color:black;
+}
+
+#terrain-drawing {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#terrain-drawing p {
+  min-width: 2em;
+}
+
+#vis-settings-fieldset {
+  align-items: center;
+}
+
+.editable td {
+  cursor: crosshair;
+}
+
+.not-editable td {
+  cursor: not-allowed;
+}

@@ -1,0 +1,23 @@
+{
+  "name": "algo-visualizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "TylerQube",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "ts-loader": "^9.2.6"
+  }
+}
