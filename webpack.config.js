@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: './src/dragdrop.ts',
+  entry: './src/pathfind.ts',
   module: {
     rules: [
       {

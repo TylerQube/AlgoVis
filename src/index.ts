@@ -105,6 +105,8 @@ export const gridFromArr = (arr : Array<Array<number>>) => {
       // store passability in cell dataset
       cell.dataset.passability = arr[row][col].toString();
       cell.draggable = false;
+      cell.dataset.row = row.toString();
+      cell.dataset.col = col.toString();
 
       // add hover events
       cell.addEventListener('mouseenter', (e) => {
@@ -137,13 +139,14 @@ export const getCurGrid = (table : HTMLElement) : Array<Array<number>> => {
     }
     arr.push(arrRow);
   }
+  console.log(arr);
   return arr;
 };
 
 const updateGridSize = () => {
   const size : string = sizeRange.value;
   sizeTextDisplay.textContent = `${size} x ${size}`;
-  const newArr = gridFromArr(make2DArr(parseInt(size), parseInt(size), 0.1));
+  const newArr = gridFromArr(make2DArr(parseInt(size), parseInt(size), 0));
   document.getElementById('algo-vis').innerHTML = "";
   document.getElementById('algo-vis').appendChild(newArr);
 };
@@ -166,7 +169,26 @@ editBtn.addEventListener('click', (e) => {
   enableEditGrid();
 });
 
+const editErrText = document.getElementById('terrain-edit-err');
+
 const confirmSaveGrid = () => {
+  editErrText.textContent = "";
+  // verify grid is valid
+  const start = document.getElementById('start-cell');
+  const finish = document.getElementById('finish-cell');
+  if(start == null && finish == null) {
+    editErrText.textContent = "Please place a start & finish";
+    return;
+  }
+  if(start == null) {
+    editErrText.textContent = "Please place a start location";
+    return;
+  }
+  if(finish == null) {
+    editErrText.textContent = "Please place a finish location";
+    return;
+  }
+
   // save terrain to global var
   if(algoVis.childElementCount == 0) return;
   const arr : Array<Array<number>> = getCurGrid(algoVis.children[0] as HTMLElement);
@@ -206,11 +228,22 @@ const textPassability = document.getElementById('passability-text-display');
 passabilitySlider.addEventListener('input', updatePassabilityTool);
 updatePassabilityTool();
 
+const arrClear = (arr : Array<Array<number>>) => {
+  for(let i = 0; i < arr.length; i++) {
+    for(let j = 0; j < arr[i].length; j++) {
+      if(arr[i][j] > 0.1) return false;
+    }
+  }
+  return true;
+};
+
 // Grid size editor control
 // stop form submit (page reload)
 document.getElementById('vis-settings').addEventListener('submit', (e) => {e.preventDefault();});
 const sizeRange = document.getElementById('dimensions-slider') as HTMLInputElement;
-sizeRange.addEventListener('input', updateGridSize);
+sizeRange.addEventListener('input', () => {
+  if(arrClear(getCurGrid(document.getElementById('vis-table'))) || confirm("Changing the grid size will reset the terrain. Are you sure you want to continue?")) updateGridSize();
+});
 const sizeTextDisplay = document.getElementById('grid-size-counter');
 
 // add drag and drop from start/finish icons

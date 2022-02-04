@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="./css/algo-vis.css">
   </head>
   <body class="flex-col">
-    <header class="header m0 flex-col">
-      <h3 class="m0">AlgoVision</h3>
+    <header class="header flex-col  flex-center">
+      <h3>AlgoVision</h3>
     </header>
     <main id="main-cont" class="flex-row m0">
       <article id="algo-control" class="even-two-col m0 col-left">
@@ -41,8 +41,10 @@
         <div id="vis-control flex-row">
           <button id="reset-btn" class="btn">Reset</button>
           <button id="play-btn" class="btn">Play</button>
-          <button id="stop-btn" class="btn">Pause</button>
+          <!-- <button id="pause-btn" class="btn">Pause</button> -->
         </div>
+        <label for="delay-slider">Speed</label>
+        <input id="delay-slider" name="delay-slider" type="range" min="0" max="1" step="0.1"/>
         <h2>Visualizer Settings</h2>
         <form id="vis-settings" disabled="disabled">
           <fieldset id="vis-settings-fieldset" class="flex-col">
@@ -53,18 +55,18 @@
               <label for="diagonal-movement-checkbox">Diagonal Movement</label>
               <input name="diagonal-movement-checkbox" id="diagonal-movement-checkbox" type="checkbox"/>
             </div>
+            <div class="flex-row m1">
+              <label for="euclidean-checkbox">Euclidean Heuristic</label>
+              <input name="euclidean-checkbox" id="euclidean-checkbox" type="checkbox"/>
+            </div>
             <h3>Map Editing</h3>
             <div id="terrain-drawing" class="flex-row flex-center">
               <div id="passability-icon"></div>
               <p id="passability-text-display"></p>
             </div>
-            <input id="passability-slider" name="passability-slider" type="range" min="0.1" max="1" step="0.1"/>
             <label for="passability-slider">0-1 (Clear to Impassible)</label>
-            <div class="flex-row">
-              <button id="clear-map-btn" class="btn">Clear</button>
-              <button id="confirm-map-btn" class="btn">Confirm</button>
-              <button id="edit-map-btn" class="btn" style="display:none;">Edit</button>
-            </div>
+            <input id="passability-slider" name="passability-slider" type="range" min="0" max="1" step="0.1"/>
+
             <p>Drag and drop start & finish</p>
             <div class="flex-row">
               <div class="flex-col flex-center m1-side">
@@ -77,6 +79,13 @@
                 <p>Finish</p>
               </div>
             </div>
+            <div class="flex-row">
+              <button id="confirm-map-btn" class="btn">Confirm</button>
+              <button id="edit-map-btn" class="btn" style="display:none;">Edit</button>
+              <button id="clear-map-btn" class="btn">Clear</button>
+            </div>
+            <p id="terrain-edit-err"></p>
+            
           </fieldset>
         </form>
       </div>

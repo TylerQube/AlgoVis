@@ -1,5 +1,6 @@
 #algo-vis {
   padding: 0;
+  user-select: none;
 }
 
 #algo-vis > table {
@@ -12,15 +13,22 @@
   margin: 0;
   border: 1px solid gray;
   padding: 0;
-}
 
-.vis-cell {
-
+  font-size: 80%;
 }
 
 #vis-container {
   padding: 1em;
   align-items: flex-start;
+}
+
+#main-cont {
+  justify-content: space-between;
+  height: 94%;
+}
+
+#main-cont > div {
+  overflow-y: scroll;
 }
 
 
@@ -52,4 +60,12 @@
 
 .not-editable td {
   cursor: not-allowed;
+}
+
+#terrain-edit-err {
+  color: red;
+}
+
+#vis-control-cont, #algo-control {
+  /* overflow: scroll; */
 }

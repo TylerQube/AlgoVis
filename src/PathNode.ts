@@ -1,6 +1,7 @@
-type heuristicMode = "euclidean" | "manhattan" | "diagonal";
+export type heuristicMode = "euclidean" | "manhattan" | "diagonal";
+import { Pair } from "./Pair";
 
-class PathNode {
+export class PathNode {
   parent : PathNode;
   coord: Pair;
   passability : number;
@@ -20,14 +21,16 @@ class PathNode {
   getHeuristic = (goalX : number, goalY : number) : number => {
     const dx = Math.abs(goalX - this.coord.x);
     const dy = Math.abs(goalY - this.coord.y);
+    let dist;
     switch(this.heuristic) {
       case "euclidean":
-        return Math.sqrt(Math.pow(goalY - this.coord.y, 2) + Math.pow(goalX - this.coord.x, 2));
+        dist = Math.sqrt(Math.pow(goalY - this.coord.y, 2) + Math.pow(goalX - this.coord.x, 2));
       case "manhattan":
-        return dx + dy;
+        dist = dx + dy;
       case "diagonal":
-        return (dx + dy) - Math.min(dx, dy); 
+        dist = (dx + dy) - Math.min(dx, dy); 
     }
+    return dist;
   }
 
   getHeuristicSum = (goalX : number, goalY : number) : number => {
@@ -35,7 +38,7 @@ class PathNode {
   }
 
   equals = (other : PathNode) => {
-    return this.coord.equals(other.coord) && this.passability == other.passability && this.heuristic == other.heuristic;
+    return this.coord.equals(other.coord);
   }
 
 
@@ -44,6 +47,13 @@ class PathNode {
       if(node.equals(arr[i])) return true;
     }
     return false;
+  }
+
+  static indexOfNode(arr : Array<PathNode>, node : PathNode) : number {
+    for(let i = 0; i < arr.length; i++) {
+      if(node.equals(arr[i])) return i;
+    }
+    return -1;
   }
 
 }
