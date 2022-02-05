@@ -41,6 +41,10 @@ export class PathNode {
     return this.coord.equals(other.coord);
   }
 
+  copy = () => {
+    return new PathNode(this.parent, this.coord.x, this.coord.y, this.passability, this.heuristic);
+  }
+
 
   static arrayContainsNode(arr : Array<PathNode>, node : PathNode) {
     for(let i = 0; i < arr.length; i++) {
@@ -57,3 +61,11 @@ export class PathNode {
   }
 
 }
+
+export const copyNodeArray = (arr : Array<PathNode>) : Array<PathNode> => {
+  let newArr : Array<PathNode> = [];
+  for(let i = 0; i < arr.length; i++) {
+    newArr.push(arr[i].copy());
+  }
+  return newArr;
+};

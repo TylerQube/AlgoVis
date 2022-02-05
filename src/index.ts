@@ -85,7 +85,6 @@ export const gridFromArr = (arr : Array<Array<number>>) => {
     const tableWidth : number = parseFloat(window.getComputedStyle(algoVis).width.slice(0, -2));
     const cellSize : number = tableWidth / arr.length;
     const tableRow = document.createElement('tr');
-    console.log(tableWidth);
     tableRow.draggable = false;
     for(let col = 0; col < arr[0].length; col++) {
       const cell = document.createElement('td');
@@ -139,7 +138,6 @@ export const getCurGrid = (table : HTMLElement) : Array<Array<number>> => {
     }
     arr.push(arrRow);
   }
-  console.log(arr);
   return arr;
 };
 
@@ -253,8 +251,11 @@ startIconDrag.addEventListener('dragstart', dragStart);
 const finishIconDrag = document.getElementById('finish-icon');
 finishIconDrag.addEventListener('dragstart', dragStart);
 
+const pathfind = require('./pathfind');
+
 // set up intial grid
 enableEditGrid();
 window.onload = () => {
   updateGridSize();
+  pathfind.setupControls();
 } 

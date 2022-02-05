@@ -1,5 +1,5 @@
 import { curEditorState } from "./index";
-import { Pair } from "./Pair";
+import { Pair } from "./obj/Pair";
 console.log("test");
 
 export const dragStart = (e : DragEvent) => {

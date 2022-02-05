@@ -32,19 +32,32 @@
           </ul>
           <p>Experiment with this visualization to understand the inner workings of A*</p>
         </div>
+        <div id="vis-stats" class="flex-col flex-center">
+          <h2>Visualizer Status</h2>
+          <div class="flex-row flex-center">
+            <p>Computation Time: </p><p id="comp-time"></p>
+          </div>
+          <div class="flex-row flex-center">
+            <p>Cells Searched: </p><p id="cells-searched"></p>
+          </div>
+        </div>
       </article>
       <figure id="vis-container" draggable="false">
         <div id="algo-vis" draggable="false"></div>
       </figure>
       <div id="vis-control-cont" class="col-right">
         <h2>Visualizer Control</h2>
-        <div id="vis-control flex-row">
+        <div id="vis-control" class="flex-row flex-center">
           <button id="reset-btn" class="btn">Reset</button>
           <button id="play-btn" class="btn">Play</button>
-          <!-- <button id="pause-btn" class="btn">Pause</button> -->
+          <button id="pause-btn" class="btn">Pause</button>
         </div>
-        <label for="delay-slider">Speed</label>
-        <input id="delay-slider" name="delay-slider" type="range" min="0" max="1" step="0.1"/>
+        <div class="flex-row flex-center">
+          <button id="step-back-btn" class="btn">Step -</button>
+          <button id="step-forward-btn" class="btn">Step +</button>
+        </div>
+        <label for="speed-slider">Speed</label>
+        <input id="speed-slider" name="speed-slider" type="range" min="0" max="1" step="0.1"/>
         <h2>Visualizer Settings</h2>
         <form id="vis-settings" disabled="disabled">
           <fieldset id="vis-settings-fieldset" class="flex-col">
