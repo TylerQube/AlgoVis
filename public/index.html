@@ -2,35 +2,93 @@
 <html>
   <head>
     <title>AlgoVision</title>
+    <link rel="icon" href="./resources/eyecon.png">
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/spacing.css">
     <link rel="stylesheet" href="./css/algo-vis.css">
   </head>
   <body class="flex-col">
-    <header class="header flex-col  flex-center">
+    <header class="header flex-row flex-row-spread">
+      <div></div>
       <h3>AlgoVision</h3>
+      <div>
+        <a id="github-link" target="_blank" href="https://github.com/TylerQube/AlgoVis" class="flex-row flex-center">
+          <p>TylerQube</p>
+          <img id="github-icon" class="icon-white" src="./resources/github.svg"/>
+        </a>
+      </div>
     </header>
     <main id="main-cont" class="flex-row m0">
       <article id="algo-control" class="even-two-col m0 col-left">
-        <div>
-          <h2>A* (A Star) Pathfinding Algorithm</h2>
-          <p>
-            An extension of Dijkstra's Algorithm, A Star finds the shortest path 
-            to a goal by prioritizing nodes with the sum of the current distance 
-            travelled and heuristic function to predict the most advantageous next step.
-          </p>
-          <p>
-            One straightforward heuristic function is the euclidean distance between a
-            potential node and the goal. Thus, the algorithm will first search nodes moving in
-            the direction of the goal, which in many cases will more quickly find the shortest path.
-          </p>
-          <p>Other popular heuristics include:</p>
-          <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Taxicab_geometry" target="_blank">Manhattan Distance (Taxicab Geometry)</a></li>
-            <li>Diagonal Distance</li>
-          </ul>
-          <p>Experiment with this visualization to understand the inner workings of A*</p>
+        <div id="algo-text">
+          <div>
+            <h2>Welcome to AlgoVision!</h2>
+            <p>
+              Experiment with this visualizer to understand the inner workings of
+              common pathfinding algorithms!
+            </p>
+            <p>
+              Use the editor on the right to:
+            </p>
+            <ul>
+              <li>Enable/disable diagonal movement</li>
+              <li>Select a pathfinding algorithm to demo</li>
+              <li>Change the map dimensions</li>
+              <li>Add terrain and walls to the map</li>
+              <li>Add a start & finish</li>
+            </ul>
+            <p>
+              Press play, and watch the visualizer find a path to the finish.<br>
+            </p> 
+            <p>Read on to learn about each algorithm in depth!</p>
+          </div>
+          <div>
+            <h2>Dijkstra's Pathfinding Algorithm</h2>
+            <p>
+              One of the earliest published pathfinding algorithms, computer scientist
+              Edsger W. Dijkstra thought up his algorithm in 1956.
+            </p>
+            <p>
+              Given a graph of traversable nodes, Dijkstra's algorithm determines the 
+              shortest path between any two nodes.  
+            </p>
+            <p>
+              Each iteration, the algorithm selects the next node to explore based on
+              the node with the least total "cost" from the start node, which might
+              be represented in units of time or distance.
+            </p>
+            <p>
+              One weakness of Dijkstra's algorithm is ignorance of which nodes are
+              closer in cost to the finish node.
+            </p>
+            <p>
+              For example, if a graph consists of hundreds of nodes with low costs 
+              in the opposite direction as the finish, many of them will be explored
+              before moving in the correct direction.
+            </p>
+            <p>
+              The shortest path will still be found, but in an unnecessarily slow manner.
+            </p>
+          </div>
+          <div>
+            <h2>A* (A Star) Pathfinding Algorithm</h2>
+            <p>
+              An extension of Dijkstra's Algorithm, A Star addresses its predecessor's weakness 
+              by prioritizing nodes with the sum of the current distance 
+              travelled and heuristic function to predict the most advantageous next step.
+            </p>
+            <p>
+              One straightforward heuristic function is the euclidean distance between a
+              potential node and the goal. Thus, the algorithm will first search nodes moving in
+              the direction of the goal, which in many cases will more quickly find the shortest path.
+            </p>
+            <p>Other popular heuristics include:</p>
+            <ul>
+              <li><a href="https://en.wikipedia.org/wiki/Taxicab_geometry" target="_blank">Manhattan Distance (Taxicab Geometry)</a></li>
+              <li>Diagonal Distance</li>
+            </ul>
+          </div>
         </div>
         <div id="vis-stats" class="flex-col flex-center">
           <h2>Visualizer Status</h2>
@@ -75,9 +133,6 @@
         <h2>Visualizer Settings</h2>
         <form id="vis-settings" disabled="disabled">
           <fieldset id="vis-settings-fieldset" class="flex-col">
-            <label for="vis-dimensions">Map Dimensions</label>
-            <input id="dimensions-slider" name="vis-dimensions" type="range" min="4" max="24" step="1"/>
-            <label for="vis-dimensions" id="grid-size-counter"></label>
             <div class="flex-row m1">
               <label for="diagonal-movement-checkbox">Diagonal Movement</label>
               <input name="diagonal-movement-checkbox" id="diagonal-movement-checkbox" type="checkbox"/>
@@ -90,7 +145,15 @@
                 <option value="greedy">Greedy</option>
               </select>
             </div>
-            <h3>Map Editing</h3>
+            <h2>Map Editing</h2>
+            <div class="flex-row flex-center">
+              <div class="flex-col">
+                <label for="vis-dimensions">Dimensions</label>
+                <input id="dimensions-slider" name="vis-dimensions" type="range" min="4" max="24" step="1"/>
+                <label for="vis-dimensions" id="grid-size-counter"></label>
+              </div>
+              <button id="clear-map-btn" class="btn">Clear</button>
+            </div>
             <div id="terrain-drawing" class="flex-row flex-center">
               <div id="passability-icon"></div>
               <p id="passability-text-display"></p>
@@ -108,11 +171,6 @@
                 <img draggable="true" id="finish-icon" src="./resources/trophy-fill.svg"/>
                 <p>Finish</p>
               </div>
-            </div>
-            <div class="flex-row">
-              <!-- <button id="confirm-map-btn" class="btn">Confirm</button> -->
-              <!-- <button id="edit-map-btn" class="btn" style="display:none;">Edit</button> -->
-              <button id="clear-map-btn" class="btn">Clear</button>
             </div>
             <p id="terrain-edit-err"></p>
             

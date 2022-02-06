@@ -66,6 +66,10 @@
   color: red;
 }
 
+#vis-stats {
+  border-top: 1px solid gray;
+}
+
 #vis-stats table {
   font-size: 1.2em;
   font-family:Arial, Helvetica, sans-serif;
@@ -82,4 +86,15 @@
 
 #vis-stats td p {
   margin: 0.5em 0;
+}
+
+#algo-control {
+  padding: 0;
+}
+
+#algo-text {
+  height: 70%;
+  overflow-y: scroll;
+  padding: 0 1rem;
+  font-size: 120%;
 }

@@ -20,6 +20,11 @@ html, body {
   align-items: center;
 }
 
+.flex-row-spread {
+  align-items: center;
+  justify-content: space-between;
+}
+
 .flex-col-start {
   display: flex;
   justify-content: center;
@@ -86,6 +91,21 @@ html, body {
   height: 100%;
 }
 
+#github-icon {
+  width: 1.8em;
+  margin: 0 0.5em;
+}
+
+#github-link {
+  text-decoration: none;
+  cursor:pointer;
+  color: white;
+}
+
+.icon-white {
+  color:white;
+}
+
 .btn:disabled {
   cursor: not-allowed;
 }
@@ -95,11 +115,23 @@ fieldset {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 0.5em;
+  margin: 0.5em 0;
 }
 
 img#finish-icon, img#start-icon {
   width: 48px;
   height: 48px;
   cursor: grab;
+}
+
+select {
+  padding: 0.5em 0.3em;
+  border: none;
+  background-color: #eeeeee;
+  border: 1px solid gray;
+  margin: 0 0.5em;
+}
+
+option {
+  padding: 0.5em 0.3em;
 }
