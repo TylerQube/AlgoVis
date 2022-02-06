@@ -167,24 +167,24 @@ clearBtn.addEventListener('click', () => {
 //   enableEditGrid();
 // });
 
-const editErrText = document.getElementById('terrain-edit-err');
+// const editErrText = document.getElementById('terrain-edit-err');
 const editorFieldset = document.getElementById('vis-settings-fieldset') as HTMLFieldSetElement;
 
 export const confirmSaveGrid = () => {
-  editErrText.textContent = "";
+  // editErrText.textContent = "";
   // verify grid is valid
   const start = document.getElementById('start-cell');
   const finish = document.getElementById('finish-cell');
   if(start == null && finish == null) {
-    editErrText.textContent = "Please place a start & finish";
+    alert("Please place a start & finish");
     return;
   }
   if(start == null) {
-    editErrText.textContent = "Please place a start location";
+    alert("Please place a start location");
     return;
   }
   if(finish == null) {
-    editErrText.textContent = "Please place a finish location";
+    alert("Please place a finish location");
     return;
   }
 

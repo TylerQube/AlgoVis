@@ -28,7 +28,7 @@
 }
 
 #main-cont > div {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 
@@ -54,6 +54,10 @@
   align-items: center;
 }
 
+#vis-settings-fieldset > * {
+  margin: 0.3em auto;
+}
+
 .editable td {
   cursor: crosshair;
 }
@@ -68,6 +72,7 @@
 
 #vis-stats {
   border-top: 1px solid gray;
+  overflow-y: auto;
 }
 
 #vis-stats table {
