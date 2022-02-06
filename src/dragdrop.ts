@@ -1,15 +1,12 @@
 import { curEditorState } from "./index";
 import { Pair } from "./obj/Pair";
-console.log("test");
 
 export const dragStart = (e : DragEvent) => {
-  console.log(curEditorState);
   if(curEditorState == "confirmed") {
     e.preventDefault();
     return;
   } 
   const target = e.target as HTMLElement;
-  console.log(target);
   if(target.classList.contains('vis-cell')) {
     e.preventDefault();
     return;

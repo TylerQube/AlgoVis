@@ -155,21 +155,22 @@ clearBtn.addEventListener('click', () => {
 });
 
 
-const confirmBtn = document.getElementById('confirm-map-btn');
-confirmBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  confirmSaveGrid();
-})
+// const confirmBtn = document.getElementById('confirm-map-btn');
+// confirmBtn.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   confirmSaveGrid();
+// })
 
-const editBtn = document.getElementById('edit-map-btn');
-editBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  enableEditGrid();
-});
+// const editBtn = document.getElementById('edit-map-btn');
+// editBtn.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   enableEditGrid();
+// });
 
 const editErrText = document.getElementById('terrain-edit-err');
+const editorFieldset = document.getElementById('vis-settings-fieldset') as HTMLFieldSetElement;
 
-const confirmSaveGrid = () => {
+export const confirmSaveGrid = () => {
   editErrText.textContent = "";
   // verify grid is valid
   const start = document.getElementById('start-cell');
@@ -196,17 +197,19 @@ const confirmSaveGrid = () => {
   curEditorState = "confirmed";
   algoVis.classList.remove('editable');
   algoVis.classList.add('not-editable');
-  confirmBtn.style.display = "none";
-  editBtn.style.display = "";
+  // confirmBtn.style.display = "none";
+  // editBtn.style.display = "";
+  editorFieldset.disabled = true;
 }
 
-const enableEditGrid = () => {
+export const enableEditGrid = () => {
   // enable editing
   curEditorState = "editing";
   algoVis.classList.remove('not-editable');
   algoVis.classList.add('editable');
-  confirmBtn.style.display = "";
-  editBtn.style.display = "none";
+  // confirmBtn.style.display = "";
+  // editBtn.style.display = "none";
+  editorFieldset.disabled = false;
 };
 
 // Track mouse state
@@ -240,7 +243,17 @@ const arrClear = (arr : Array<Array<number>>) => {
 document.getElementById('vis-settings').addEventListener('submit', (e) => {e.preventDefault();});
 const sizeRange = document.getElementById('dimensions-slider') as HTMLInputElement;
 sizeRange.addEventListener('input', () => {
-  if(arrClear(getCurGrid(document.getElementById('vis-table'))) || confirm("Changing the grid size will reset the terrain. Are you sure you want to continue?")) updateGridSize();
+  if(arrClear(getCurGrid(document.getElementById('vis-table')))) {
+    updateGridSize();
+    return;
+  } 
+  // ask user to confirm change
+  const confirmChange = confirm("Changing the grid size will reset the terrain. Are you sure you want to continue?");
+  if(confirmChange) {
+    // prevent clicking confirm from drawing on editor
+    isMouseDown = false;
+    updateGridSize();
+  }
 });
 const sizeTextDisplay = document.getElementById('grid-size-counter');
 

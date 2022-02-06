@@ -66,6 +66,20 @@
   color: red;
 }
 
-#vis-control-cont, #algo-control {
-  /* overflow: scroll; */
+#vis-stats table {
+  font-size: 1.2em;
+  font-family:Arial, Helvetica, sans-serif;
+  width: 90%;
+}
+
+#vis-stats table td {
+  width: 45%;
+}
+
+#vis-stats td:first-child {
+  text-align: right;
+}
+
+#vis-stats td p {
+  margin: 0.5em 0;
 }

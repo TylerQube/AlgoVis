@@ -1,5 +1,5 @@
 import { startPair, finishPair, dropIconInCell } from "./dragdrop";
-import { getCurGrid } from ".";
+import { getCurGrid, confirmSaveGrid, enableEditGrid } from ".";
 import { PathNode, copyNodeArray } from "./obj/PathNode";
 import { heuristicMode } from "./obj/PathNode";
 import { PathState, astarStep, copyStateArr } from "./obj/PathState";
@@ -9,9 +9,7 @@ let visualizerRunning : boolean = false;
 const generatePathState = (table : HTMLTableElement, arr : Array<Array<number>>) : Array<PathState> => {
 
   const diagonalCheckbox = document.getElementById('diagonal-movement-checkbox') as HTMLInputElement;
-  // const euclideanCheckbox = document.getElementById("euclidean-checkbox") as HTMLInputElement;
   const canDiagonalMove : boolean = diagonalCheckbox.checked;
-  // const euclideanHeuristic : boolean = euclideanCheckbox.checked;
   const heuristicMode : heuristicMode = /*euclideanHeuristic ? "euclidean" :*/ canDiagonalMove ? "diagonal" : "manhattan";
   const startNode = new PathNode(null, startPair.x, startPair.y, 0, heuristicMode);
 
@@ -44,6 +42,7 @@ const setupSim = () => {
   const endTime = window.performance.now();
 
   document.getElementById('comp-time').textContent = ((endTime - startTime) / 1000).toFixed(3).toString() + " seconds";
+  document.getElementById('step-count').textContent = `0/${states.length}`;
   indState = 0;
 };
 
@@ -53,16 +52,18 @@ const runVisualizer = () => {
 
   const delayMs = (1 - Number(speedSlider.value)) * 1000;
   drawVisInterval = setInterval(() => {
-    if(indState > states.length - 1) {
+    // draw the current state
+    const state = states[indState];
+    state.draw(visTable, startPair, finishPair);
+    const stepStr = `${indState + 1}/${states.length}`;
+    document.getElementById('step-count').textContent = stepStr;
+
+
+    if(indState + 1 > states.length - 1) {
       // finished drawing all states
       clearInterval(drawVisInterval);
       return;
     }
-
-    // draw the current state
-    const state = states[indState];
-    state.draw(visTable, startPair, finishPair);
-
     indState++;
   }, delayMs);
 };
@@ -79,6 +80,7 @@ const resetPathfinder = (table : HTMLTableElement) => {
   if(drawVisInterval != null) clearInterval(drawVisInterval);
   document.getElementById('comp-time').textContent = "";
   document.getElementById('cells-searched').textContent = "";
+  document.getElementById('step-count').textContent = "";
   states = [];
   indState = 0;
   startTime = null;
@@ -99,6 +101,7 @@ const stepPathfinder = (e : MouseEvent) => {
 const setupControls = () => {
   const startBtn = document.getElementById('play-btn');
   startBtn.addEventListener('click', () => {
+    confirmSaveGrid();
     setupSim();
     visualizerRunning = true;
     runVisualizer();
@@ -108,12 +111,13 @@ const setupControls = () => {
   resetBtn.addEventListener('click', () => {
     resetPathfinder(document.getElementById('vis-table') as HTMLTableElement);
     visualizerRunning = false;
+    enableEditGrid();
   });
 
   const speedSlider = document.getElementById('speed-slider') as HTMLInputElement;
   speedSlider.addEventListener('change', () => {
     clearInterval(drawVisInterval);
-    runVisualizer();
+    if(visualizerRunning) runVisualizer();
   });
 
   const pauseBtn = document.getElementById('pause-btn');

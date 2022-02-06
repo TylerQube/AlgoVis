@@ -22,7 +22,7 @@ export class PathState {
     this.setColors = ["#FF3C3C", "#FFFC3C", "#3C98FF"];
 
     // clear all unnecessary nodes
-    const allCoords = this.allNodeCoordArr();
+    const allCoords = this.allNodeCoordArr(this.result == null);
     for(let row = 0; row < table.childElementCount; row++) {
       for(let col = 0; col < table.children[row].childElementCount; col++) {
         if(new Pair(row, col).equals(start) || new Pair(row, col).equals(goal)) continue;
@@ -40,7 +40,7 @@ export class PathState {
     // draw nodes on table
     for(let i = 0; i < this.nodeSets.length; i++) {
       const set : Array<PathNode> = this.nodeSets[i];
-      if(set == null) continue;
+      if(set == null || (this.result != null && i != 2)) continue;
 
       const color = this.setColors[i];
 
@@ -61,11 +61,11 @@ export class PathState {
     document.getElementById('cells-searched').textContent = (this.openNodes.length + this.closedNodes.length).toString();
   }
 
-  allNodeCoordArr = () : Array<Pair> => {
+  allNodeCoordArr = (includeSearched : boolean) : Array<Pair> => {
     let arr : Array<Pair> = [];
     for(let i = 0; i < this.nodeSets.length; i++) {
       const set : Array<PathNode> = this.nodeSets[i];
-      if(set == null) continue;
+      if(set == null || (!includeSearched && i != 2)) continue;
       for(let j = 0; j < set.length; j++) {
         const node = set[j];
         if(!arr.includes(node.coord)) arr.push(node.coord);

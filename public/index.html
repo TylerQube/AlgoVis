@@ -34,12 +34,17 @@
         </div>
         <div id="vis-stats" class="flex-col flex-center">
           <h2>Visualizer Status</h2>
-          <div class="flex-row flex-center">
-            <p>Computation Time: </p><p id="comp-time"></p>
-          </div>
-          <div class="flex-row flex-center">
-            <p>Cells Searched: </p><p id="cells-searched"></p>
-          </div>
+          <table>
+            <tr>
+              <td><p>Computation Time: </p></td><td><p id="comp-time"></p></td>
+            </tr>
+            <tr>
+              <td><p>Search Steps: </p></td><td><p id="step-count"></p></td>
+            </tr>
+            <tr>
+              <td><p>Cells Searched: </p></td><td><p id="cells-searched"></p></td>
+            </tr>
+          </table>
         </div>
       </article>
       <figure id="vis-container" draggable="false">
@@ -68,10 +73,6 @@
               <label for="diagonal-movement-checkbox">Diagonal Movement</label>
               <input name="diagonal-movement-checkbox" id="diagonal-movement-checkbox" type="checkbox"/>
             </div>
-            <div class="flex-row m1">
-              <label for="euclidean-checkbox">Euclidean Heuristic</label>
-              <input name="euclidean-checkbox" id="euclidean-checkbox" type="checkbox"/>
-            </div>
             <h3>Map Editing</h3>
             <div id="terrain-drawing" class="flex-row flex-center">
               <div id="passability-icon"></div>
@@ -93,8 +94,8 @@
               </div>
             </div>
             <div class="flex-row">
-              <button id="confirm-map-btn" class="btn">Confirm</button>
-              <button id="edit-map-btn" class="btn" style="display:none;">Edit</button>
+              <!-- <button id="confirm-map-btn" class="btn">Confirm</button> -->
+              <!-- <button id="edit-map-btn" class="btn" style="display:none;">Edit</button> -->
               <button id="clear-map-btn" class="btn">Clear</button>
             </div>
             <p id="terrain-edit-err"></p>
