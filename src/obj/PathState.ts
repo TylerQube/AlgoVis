@@ -81,7 +81,9 @@ export class PathState {
   }
 }
 
-const astarStep = (terrainArr : Array<Array<number>>, state : PathState, goal : Pair, diagonalMovement : boolean) : PathState => {
+export type pathfindAlgo = "greedy" | "dijkstra" | "astar";
+
+const pathfinderStep = (algo : pathfindAlgo, terrainArr : Array<Array<number>>, state : PathState, goal : Pair, diagonalMovement : boolean) : PathState => {
   let openNodes = state.openNodes;
   let closedNodes = state.closedNodes;
 
@@ -90,7 +92,25 @@ const astarStep = (terrainArr : Array<Array<number>>, state : PathState, goal : 
   let currentNode = openNodes[0]; 
   let ind = 0; 
   for(let i = 0; i < openNodes.length; i++) {
-    if(openNodes[i].getHeuristicSum(goal.x, goal.y) < currentNode.getHeuristicSum(goal.x, goal.y)) {
+    const testNode = openNodes[i];
+    let bestHeuristic : number;
+    let testHeuristic : number;
+    // pick heuristic based on algorithm
+    switch(algo) {
+      case "astar":
+        bestHeuristic = currentNode.getHeuristicSum(goal.x, goal.y);
+        testHeuristic = testNode.getHeuristicSum(goal.x, goal.y);
+        break;
+      case "dijkstra":
+        bestHeuristic = currentNode.distFromStart;
+        testHeuristic = testNode.distFromStart;
+        break;
+      case "greedy":
+        bestHeuristic = currentNode.getHeuristic(goal.x, goal.y);
+        testHeuristic = testNode.getHeuristic(goal.x, goal.y);
+        break;
+    }
+    if(testHeuristic < bestHeuristic) {
       currentNode = openNodes[i];
       ind = i;
     } 
@@ -101,14 +121,10 @@ const astarStep = (terrainArr : Array<Array<number>>, state : PathState, goal : 
 
   // found the goal!
   if(currentNode.coord.equals(goal)) {
-    // console.log(`goal: (${goal.x}, ${goal.y})`)
-    // console.log(`cur: (${currentNode.coord.x}, ${currentNode.coord.y})`);
-    // console.log("reached goal!");
     const state = new PathState(openNodes, closedNodes);
     state.result = backtrackMoves(currentNode);
     return state;
   }
-  // console.log(`current node (${currentNode.coord.x}, ${currentNode.coord.y})`)
 
   const newMoves : Array<Pair> = findValidMoves(terrainArr, currentNode.coord, diagonalMovement);
   for(let ind = 0; ind < newMoves.length; ind++) {
@@ -123,9 +139,7 @@ const astarStep = (terrainArr : Array<Array<number>>, state : PathState, goal : 
     // if open, check if current path is shorter
     if(PathNode.arrayContainsNode(openNodes, newNode)) {
       const existingNode : PathNode = openNodes[PathNode.indexOfNode(openNodes, newNode)];
-      // console.log(`node (${existingNode.coord.x}, ${existingNode.coord.y}) already open, evaluating dist...`)
       if(newNode.distFromStart < existingNode.distFromStart) {
-        // console.log((newNode.distFromStart).toString() + "<" + existingNode.distFromStart);
         existingNode.parent = currentNode;
         existingNode.distFromStart = newNode.distFromStart;
       }
@@ -143,8 +157,6 @@ const backtrackMoves = (endNode : PathNode) : Array<PathNode> => {
     moves.push(curNode);
     curNode = curNode.parent;
   }
-  // console.log("moves " + moves.toString());
-  // console.log("count: " + moves.length.toString());
   return moves.reverse();
 }
 
@@ -176,4 +188,4 @@ export const copyStateArr = (arr : Array<PathState>) : Array<PathState> => {
   return newArr;
 };
 
-export { astarStep }
+export { pathfinderStep }

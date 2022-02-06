@@ -73,6 +73,19 @@ html, body {
   border-radius: 0.5rem;
 }
 
+.btn-no-border {
+  height: 3em;
+  margin: 0.5em 0.5em;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}
+
+.img-icon {
+  width: 100%;
+  height: 100%;
+}
+
 .btn:disabled {
   cursor: not-allowed;
 }
