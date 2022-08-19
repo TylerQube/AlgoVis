@@ -1,14 +1,14 @@
-# AlgoVis
-[Deployed Project](https://algo-vis.herokuapp.com).
+# AlgoVision
+[Deployed Project](https://algo-vision.herokuapp.com).
 
 A straightforward webpage for understanding and visualizing basic pathfinding algorithms!  
 
 Users create a maze of varying dimensions and terrain, and then observe the step by step computation of an optimal path using a variety of algorithms.
 
-I built AlgoVis as an exercise in implementing pathfinding algorithms in Typescript.
+I built AlgoVision as an exercise in implementing pathfinding algorithms in Typescript.
 
 # Features
-AlgoVis provides an intuitive drag/drop GUI to create a maze of tiles of varying "terrain difficulty" directly proportional to the "cost" of moving through the tile.   
+AlgoVision provides an intuitive drag/drop GUI to create a maze of tiles of varying "terrain difficulty" directly proportional to the "cost" of moving through the tile.   
 
 After constructing a maze and placing a start and goal on separate tiles, the user can select an algorithm between:  
 - Greedy Pathfinding
