@@ -7,6 +7,10 @@ Users create a maze of varying dimensions and terrain, and then observe the step
 
 I built AlgoVision as an exercise in implementing pathfinding algorithms in Typescript.
 
+# Demo
+
+![A Star Demo](https://raw.githubusercontent.com/TylerQube/AlgoVis/main/A*_demo.gif)
+
 # Features
 AlgoVision provides an intuitive drag/drop GUI to create a maze of tiles of varying "terrain difficulty" directly proportional to the "cost" of moving through the tile.   
 
